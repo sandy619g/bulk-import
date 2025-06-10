@@ -88,13 +88,16 @@ class CsvProcessorTest {
     }
 
     @Test
-    fun `parse handles empty file`() {
+    fun `parse throws exception on empty file`() {
         val file = createTempCsv("")
 
-        val users = processor.parse(file.absolutePath)
+        val exception = assertThrows<Exception> {
+            processor.parse(file.absolutePath)
+        }
 
-        assertTrue(users.isEmpty())
+        assertEquals("No valid rows found all rows are corrupted.", exception.message)
     }
+
 
     @Test
     fun `parse skips empty and whitespace lines`() {
