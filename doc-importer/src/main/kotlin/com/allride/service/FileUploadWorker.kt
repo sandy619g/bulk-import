@@ -2,14 +2,18 @@ package com.allride.service
 
 import com.allride.messaging.EventBus
 import com.allride.model.ProcessingStatus
+import jakarta.annotation.PostConstruct
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.springframework.stereotype.Component
 
+@Component
 class FileUploadWorker(
     private val processor: CsvProcessor,
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-) {
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO))
+{
+    @PostConstruct
     fun start() {
         scope.launch {
             for (event in EventBus.fileUploadedChannel) {
