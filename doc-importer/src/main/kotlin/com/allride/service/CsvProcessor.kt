@@ -50,7 +50,7 @@ class CsvProcessor {
         val firstName = parts[1].trim()
         val lastName = parts[2].trim()
         val email = parts[3].trim()
-
+        //TODO add email validator
         if (!email.contains("@")) throw IllegalArgumentException("Invalid email format")
 
         return User(id, firstName, lastName, email)
